@@ -59,3 +59,22 @@ class CodeBinaire:
     def __repr__(self):
         args = ", ".join(repr(b) for b in self._bits)
         return f"CodeBinaire({args})"
+
+    def __and__(self, autre):
+        if not isinstance(autre, CodeBinaire):
+            raise TypeError("Opération AND possible uniquement entre deux CodeBinaire.")
+        if len(self) != len(autre):
+            raise ValueError("Les codes doivent avoir la même longueur.")
+
+        # On utilise les valeurs des Enum (0 et 1) pour l'opération logique
+        nouveaux_bits = [Bit(b1.value & b2.value) for b1, b2 in zip(self._bits, autre._bits)]
+        return CodeBinaire(*nouveaux_bits)
+
+    def __or__(self, autre):
+        if not isinstance(autre, CodeBinaire):
+            raise TypeError("Opération OR possible uniquement entre deux CodeBinaire.")
+        if len(self) != len(autre):
+            raise ValueError("Les codes doivent avoir la même longueur.")
+
+        nouveaux_bits = [Bit(b1.value | b2.value) for b1, b2 in zip(self._bits, autre._bits)]
+        return CodeBinaire(*nouveaux_bits)

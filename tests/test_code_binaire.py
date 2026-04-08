@@ -71,3 +71,27 @@ def test_delitem(code_base):
     del code_base[1]
     assert len(code_base) == 2
     assert str(code_base) == "11"
+
+
+def test_and_logique():
+    cb1 = CodeBinaire(Bit.BIT_1, Bit.BIT_0, Bit.BIT_1)  # 101
+    cb2 = CodeBinaire(Bit.BIT_1, Bit.BIT_1, Bit.BIT_0)  # 110
+
+    resultat = cb1 & cb2
+    assert str(resultat) == "100"
+
+
+def test_or_logique():
+    cb1 = CodeBinaire(Bit.BIT_1, Bit.BIT_0, Bit.BIT_1)  # 101
+    cb2 = CodeBinaire(Bit.BIT_1, Bit.BIT_1, Bit.BIT_0)  # 110
+
+    resultat = cb1 | cb2
+    assert str(resultat) == "111"
+
+
+def test_operations_erreur_longueur():
+    cb1 = CodeBinaire(Bit.BIT_1)
+    cb2 = CodeBinaire(Bit.BIT_1, Bit.BIT_0)
+
+    with pytest.raises(ValueError):
+        cb1 & cb2
